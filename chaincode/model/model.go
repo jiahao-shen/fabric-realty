@@ -1,5 +1,7 @@
 package model
 
+import "time"
+
 // Account 账户，虚拟管理员和若干业主账号
 type Account struct {
 	AccountId string  `json:"accountId"` //账号ID
@@ -86,4 +88,31 @@ const (
 	SellingBuyKey      = "selling-buy-key"
 	DonatingKey        = "donating-key"
 	DonatingGranteeKey = "donating-grantee-key"
+	OrganizationKey    = "organization-key"
+	DataItemKey        = "dataitem-key"
 )
+
+type Organization struct {
+	Name         string    `json:"name"`         // 机构名称
+	ID           string    `json:"id"`           // 机构ID
+	Type         string    `json:"type"`         // 机构类型
+	Introduction string    `json:"introduction"` // 机构介绍
+	Superior     string    `json:"superior"`     // 上级单位
+	Subordinates []string  `json:"subordinates"` // 下级单位
+	DataItems    []string  `json:"dataitems"`    // 数据项
+	Created      time.Time `json:"created"`      // 创建时间
+}
+
+type DataItem struct {
+	Name         string    `json:"name"`         // 数据项名称
+	ID           string    `json:"id"`           // 数据项ID
+	Introduction string    `json:"introduction"` // 数据项介绍
+	Author       string    `json:"author"`       // 所有者
+	Type         string    `json:"type"`         //	数据类型
+	Shared       string    `json:"shared"`       // 共享属性
+	Resource     string    `json:"resource"`     // 资源属性
+	Classified   string    `json:"classified"`   // 涉密属性
+	Version      string    `json:"version"`      // 版本号
+	Location     string    `json:"location"`     // 存储路径
+	Created      time.Time `json:"created"`      // 创建时间
+}

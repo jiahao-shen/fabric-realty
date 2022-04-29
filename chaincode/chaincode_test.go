@@ -40,6 +40,33 @@ func TestBlockChainRealEstate_Init(t *testing.T) {
 	initTest(t)
 }
 
+func Test_QueryOrganizationList(t *testing.T) {
+	stub := initTest(t)
+	fmt.Println("1、测试查询所有机构")
+	fmt.Println(string(checkInvoke(t, stub, [][]byte{
+		[]byte("queryOrganizationList"),
+	}).Payload))
+
+	fmt.Println("2、测试查询单个机构")
+	fmt.Println(string(checkInvoke(t, stub, [][]byte{
+		[]byte("queryOrganizationList"),
+		[]byte("HospitalA-Surgery"),
+	}).Payload))
+}
+
+func Test_QueryDataItemList(t *testing.T) {
+	stub := initTest(t)
+	fmt.Println("1、测试某个机构下的数据目录")
+	fmt.Println(string(checkInvoke(t, stub, [][]byte{
+		[]byte("queryDataItemList"),
+		[]byte("HospitalA-Surgery"),
+	}).Payload))
+	fmt.Println(string(checkInvoke(t, stub, [][]byte{
+		[]byte("queryDataItemList"),
+		[]byte("HospitalA"),
+	}).Payload))
+}
+
 // 测试获取账户信息
 func Test_QueryAccountList(t *testing.T) {
 	stub := initTest(t)
