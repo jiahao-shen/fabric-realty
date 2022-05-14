@@ -40,6 +40,56 @@ func TestBlockChainRealEstate_Init(t *testing.T) {
 	initTest(t)
 }
 
+func Test_CreateOrganization(t *testing.T) {
+	stub := initTest(t)
+	id1 := string(checkInvoke(t, stub, [][]byte{
+		[]byte("createOrganization"),
+		[]byte("中华人民共和国国务院"),
+		[]byte("government"),
+		[]byte(""),
+		[]byte(""),
+	}).Payload)
+
+	fmt.Println(id1)
+
+	id2 := string(checkInvoke(t, stub, [][]byte{
+		[]byte("createOrganization"),
+		[]byte("中华人民共和国国家卫生健康委员会"),
+		[]byte("government"),
+		[]byte(""),
+		[]byte(id1),
+	}).Payload)
+
+	fmt.Println(id2)
+
+	id3 := string(checkInvoke(t, stub, [][]byte{
+		[]byte("createDataItem"),
+		[]byte("核酸检测结果"),
+		[]byte("新冠肺炎"),
+		[]byte(id2),
+		[]byte("{Identity Card: string, NATT Result: string, Time: time.time}"),
+		[]byte("Shared"),
+		[]byte("Medical"),
+		[]byte("Public"),
+		[]byte("https://gjzwfw.www.gov.cn/fwmh/healthCode/indexNucleic.do"),
+	}).Payload)
+
+	fmt.Println(id3)
+
+	orgList := string(checkInvoke(t, stub, [][]byte{
+		[]byte("queryOrganizationList"),
+	}).Payload)
+
+	fmt.Println(orgList)
+
+	dataList := string(checkInvoke(t, stub, [][]byte{
+		[]byte("queryDataItemList"),
+		[]byte(id2),
+	}).Payload)
+
+	fmt.Println(dataList)
+}
+
 func Test_QueryOrganizationList(t *testing.T) {
 	stub := initTest(t)
 	fmt.Println("1、测试查询所有机构")
@@ -57,13 +107,15 @@ func Test_QueryOrganizationList(t *testing.T) {
 func Test_QueryDataItemList(t *testing.T) {
 	stub := initTest(t)
 	fmt.Println("1、测试某个机构下的数据目录")
+
 	fmt.Println(string(checkInvoke(t, stub, [][]byte{
 		[]byte("queryDataItemList"),
 		[]byte("HospitalA-Surgery"),
 	}).Payload))
+
 	fmt.Println(string(checkInvoke(t, stub, [][]byte{
 		[]byte("queryDataItemList"),
-		[]byte("HospitalA"),
+		[]byte("HospitalB"),
 	}).Payload))
 }
 

@@ -3,11 +3,15 @@ module chaincode
 go 1.14
 
 require (
+	github.com/google/uuid v1.3.0
+	github.com/hyperledger/fabric v1.4.12
+)
+
+require (
 	github.com/Knetic/govaluate v3.0.0+incompatible // indirect
 	github.com/Shopify/sarama v1.32.0 // indirect
 	github.com/fsouza/go-dockerclient v1.7.10 // indirect
 	github.com/hashicorp/go-version v1.4.0 // indirect
-	github.com/hyperledger/fabric v1.4.12
 	github.com/hyperledger/fabric-amcl v0.0.0-20210603140002-2670f91851c8 // indirect
 	github.com/miekg/pkcs11 v1.1.1 // indirect
 	github.com/onsi/ginkgo v1.16.5 // indirect
